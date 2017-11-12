@@ -26,35 +26,38 @@ k = -floor(n_k/2):floor(n_k/2);
 
 for i = 1 : length(k)
 
-    c_k(i) = (1/T) * trapz(t , x .* exp(-j * k(i) * w_0 * t));
+    c_k(i) = (1/T) * trapz(t , x .* exp(-j * k(i) * w_0 * t))
 
 end
 
 if p == 1
 
     w_0k = w_0 * k;
-    figure(2);
+    figure('name', 'Magnitude and Angle of Fourier Coefficients for a Given Signal');
+
     subplot(2,1,1);
     stem(w_0k, abs(c_k));
+    title('|C_k| vs \omega');
     xlabel('\omega');
 
     subplot(2,1,2);
     stem(w_0k, angle(c_k) * 180/pi);
+    title('\angle C_k vs \omega')
     xlabel('\omega');
     ylabel('degrees');
 
-    x_periodic = repmat(x, 1, 5);    %make 5 copies of x 
+    x_periodic = repmat(x, 1, 5);                     %make 5 copies of x
     t_extended = linspace(0, 10, length(x_periodic)); %generate evenly spaced t values for x periodic
-    x_reconstruct = zeros(1, length(t)); 
-    
+    x_reconstruct = zeros(1, length(t));
 
     for i = 1 : length(k)
         x_reconstruct = x_reconstruct + c_k(i) * exp(j * k(i) * w_0 * t);
     end
 
-    figure(1);
-    subplot(2,1,2);
+    figure('name', 'Reconstruction of a Given Signal Using Fourier Coeff.');
+    title('x reconstructed vs t');
     plot(t, x_reconstruct);
     xlabel('t');
+    ylabel('x reconstructed');
 
 end
