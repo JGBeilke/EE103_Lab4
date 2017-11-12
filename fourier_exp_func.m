@@ -33,7 +33,7 @@ end
 if p == 1
 
     w_0k = w_0 * k;
-    figure('name', 'Magnitude and Angle of Fourier Coefficients for a Given Signal');
+    fig1 =figure('name', 'Magnitude and Angle of Fourier Coefficients for a Given Signal');
 
     subplot(2,1,1);
     stem(w_0k, abs(c_k));
@@ -54,10 +54,11 @@ if p == 1
         x_reconstruct = x_reconstruct + c_k(i) * exp(j * k(i) * w_0 * t);
     end
 
-    figure('name', 'Reconstruction of a Given Signal Using Fourier Coeff.');
-    title('x reconstructed vs t');
+    fig2 =figure('name', 'Reconstruction of a Given Signal Using Fourier Coeff.');
     plot(t, x_reconstruct);
+    title('x reconstructed vs t');
     xlabel('t');
     ylabel('x reconstructed');
 
+    iptwindowalign(fig1, 'right', fig2, 'left');
 end
